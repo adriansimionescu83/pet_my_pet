@@ -1,11 +1,12 @@
 class BookingsController < ApplicationController
   def index
-    @bookings = Booking.all
+    @bookings = policy_scope(Booking)
   end
 
   def new
     @pet = Pet.find(params[:pet_id])
     @booking = Booking.new
+    authorize @booking
   end
 
   def create
