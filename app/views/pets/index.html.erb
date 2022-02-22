@@ -1,0 +1,3 @@
+<% if policy(Pet).create? %>
+  <%= link_to 'Create New Pet', new_pet_path, class: "btn btn-primary"%>
+<% end %>

@@ -1,0 +1,10 @@
+<%= simple_form_for @pet do |f| %>
+  <%= f.input :name %>
+  <%= f.input :gender %>
+  <%= f.input :age %>
+  <%= f.input :description %>
+  <%= f.input :price_per_day %>
+  <%= f.input :is_available %>
+  <%= f.association :breed %>
+  <%= f.submit "Save My Pet", class: "btn btn-primary" %>
+<% end %>
