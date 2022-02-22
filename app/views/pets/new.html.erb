@@ -1,11 +1,15 @@
 <%= simple_form_for @pet do |f| %>
   <%= f.input :name %>
-  <%= f.input :gender %>
+  <%= f.input :gender, collection: Pet::GENDER %>
   <%= f.input :age %>
   <%= f.input :location %>
   <%= f.input :description %>
   <%= f.input :price_per_day %>
-  <%= f.input :is_available %>
+  <%= f.input :is_available, as: :select %>
+  <%= f.association :species %>
   <%= f.association :breed %>
   <%= f.submit "Save My Pet", class: "btn btn-primary" %>
 <% end %>
+
+
+<%# , collection: Breed.where(species: params[:species]), prompt: "Please select a breed" %>
