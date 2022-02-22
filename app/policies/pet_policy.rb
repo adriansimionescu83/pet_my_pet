@@ -5,4 +5,15 @@ class PetPolicy < ApplicationPolicy
       scope.all
     end
   end
+
+  def create?
+    true
+  end
+
+  private
+
+  def owner?
+    record.user == user
+  end
+
 end
