@@ -1,21 +1,52 @@
 // Specific CSS for your home-page
 .home-banner {
   background-size: cover;
-  background-position: center;
-  padding: 150px 0;
+  background-position: 0% 50%;
+  padding: 160px 0;
+  height: 70vh;
+
+  .container {
+    text-align: center;
+    padding: 0 50px;
+    margin: 0;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%)  }
+  h1 {
+    margin: 0;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  p {
+    font-size: 20px;
+    color: white;
+    opacity: .7;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  }
 }
 
-.home-banner h1 {
-  margin: 0;
-  color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-  font-size: 32px;
-  font-weight: bold;
-}
 
-.home-banner p {
-  font-size: 20px;
-  color: white;
-  opacity: .7;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+.owner-section {
+  background-color: rgb(252, 247, 254);
+  height: 40vh;
+  position: relative;
+
+    .container {
+      text-align: center;
+      padding: 0 70px;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    h1 {
+      color: rgb(107, 0, 128);
+    }
 }

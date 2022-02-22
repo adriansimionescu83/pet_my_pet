@@ -1,0 +1,21 @@
+.footer {
+  background: rgb(107, 0, 128);
+  align-items: center;
+  height: 15vh;
+  color: rgba(0,0,0,0.3);
+  padding: 40px 0;
+}
+.footer-links {
+  text-align: center;
+  padding: 0 20px;
+
+}
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 0px 10px;
+}
+.footer-links a:hover {
+  color: rgb(255, 226, 59);
+}
