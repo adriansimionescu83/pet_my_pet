@@ -15,4 +15,5 @@ class PetPolicy < ApplicationPolicy
   def owner?
     record.user == user
   end
+
 end

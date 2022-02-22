@@ -1,4 +1,8 @@
 class PetsController < ApplicationController
+
+  def index
+    @pets = policy_scope(Pet).order(created_at: :desc)
+
   def new
     @pet = Pet.new
     authorize @pet
@@ -19,5 +23,6 @@ class PetsController < ApplicationController
 
   def pet_params
     params.require(:pet).permit(:name, :gender, :age, :description, :price_per_day, :location, :is_available, :breed_id, :user_id)
+
   end
 end
