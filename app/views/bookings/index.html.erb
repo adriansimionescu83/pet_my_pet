@@ -1,0 +1,6 @@
+<h1>All of your bookings 🐶</h1>
+<% @bookings.each do |booking| %>
+<ul>
+<li><%= booking.pet.name %> is booked from <%= booking.date_start %> to <%= booking.date_end %> <%= link_to "Delete",booking_path(booking), method: :delete, data:{ confirm: "Are you sure?" } %></li>
+</ul>
+<% %><% end %>
