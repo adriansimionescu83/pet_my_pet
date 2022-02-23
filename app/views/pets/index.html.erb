@@ -28,12 +28,19 @@
 
             <div class="d-flex justify-content-between align-items-center mt-4">
               <div class="d-flex justify-content-center align-items-center mb-2">
-                <i class="fa-solid fa-star"></i>
+                <i class="fas fa-star"></i>
                 <h6 class="card-subtitle text-muted"><strong><%= pet.average_rating %></strong></h6>
               </div>
               <h6 class="card-subtitle mb-2 text-muted"><strong>AED <%= pet.price_per_day %></strong> / day</h6>
             </div>
-            
+            <div class="edit-pet d-flex justify-content-between">
+              <% if pet.user == current_user  %>
+                <%= link_to 'Edit', edit_pet_path(pet), class: "btn btn-outline-secondary"%>
+                <%= link_to 'Delete', pet_path(pet), class: "btn btn-outline-secondary",
+                    method: :delete,
+                    data: { confirm: "Are you sure?" } %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
