@@ -28,6 +28,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'pundit'
 
+
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
@@ -65,3 +67,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'cloudinary', '~> 1.16.0'
+
+gem 'dotenv-rails', groups: [:development, :test]
