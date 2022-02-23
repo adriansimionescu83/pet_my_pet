@@ -1,7 +1,7 @@
 <h1>Create a new booking for your pet!</h1>
 
-<%= simple_form_for [@pet, @booking] do |f|%>
-<%= f.input :date_start %>
-<%= f.input :date_end %>
-<%= f.submit "Submit date" %>
-<% end %>
+  <%= simple_form_for [@pet, @booking] do |f|%>
+    <%= f.input :date_start %>
+    <%= f.input :date_end %>
+    <%= f.submit "Submit date" %>
+  <% end %>
