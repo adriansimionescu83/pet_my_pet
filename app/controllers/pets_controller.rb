@@ -20,10 +20,14 @@ class PetsController < ApplicationController
     authorize @pet
   end
 
+  def show
+    @pet = Pet.find(params[:id])
+    authorize @pet
+  end
+
   private
 
   def pet_params
-    params.require(:pet).permit(:name, :gender, :age, :description, :price_per_day, :location, :is_available, :breed_id, :user_id)
-
+    params.require(:pet).permit(:name, :gender, :age, :description, :price_per_day, :location, :is_available, :breed_id, :species_id, :user_id)
   end
 end
