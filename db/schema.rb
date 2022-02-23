@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_22_130625) do
+ActiveRecord::Schema.define(version: 2022_02_23_131120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2022_02_22_130625) do
     t.date "date_start"
     t.date "date_end"
     t.integer "total_amount"
-    t.boolean "status"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["pet_id"], name: "index_bookings_on_pet_id"

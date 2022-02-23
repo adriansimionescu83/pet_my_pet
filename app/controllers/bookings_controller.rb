@@ -9,6 +9,24 @@ class BookingsController < ApplicationController
     authorize @booking
   end
 
+  def approve
+    booking_find
+    @booking.status = 'Approved'
+    @booking.save
+    authorize @booking
+
+    redirect_to booking_path(@booking)
+  end
+
+  def reject
+    booking_find
+    @booking.status = 'Rejected'
+    @booking.save
+    authorize @booking
+
+    redirect_to booking_path(@booking)
+  end
+
   def show
     booking_find
     authorize @booking
