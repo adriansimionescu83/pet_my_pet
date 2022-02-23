@@ -3,16 +3,7 @@
 </div>
 
 <div class="container">
-
-  <! -------------- create pet button -------------- >
-  <div class="d-flex justify-content-end">
-    <% if policy(Pet).create? %>
-      <%= link_to 'Create New Pet', new_pet_path, class: "btn btn-flat justify-content-right mt-5 mb-3"%>
-    <% end %>
-  </div>
-
   <div class="row">
-
 
   <! -------------- pet cards -------------- >
     <% @pets.each do |pet| %>
@@ -33,6 +24,7 @@
               </div>
               <h6 class="card-subtitle mb-2 text-muted"><strong>AED <%= pet.price_per_day %></strong> / day</h6>
             </div>
+
             <div class="edit-pet d-flex justify-content-between">
               <% if pet.user == current_user  %>
                 <%= link_to 'Edit', edit_pet_path(pet), class: "btn btn-outline-secondary"%>
@@ -41,6 +33,7 @@
                     data: { confirm: "Are you sure?" } %>
               <% end %>
             </div>
+           
           </div>
         </div>
       </div>
