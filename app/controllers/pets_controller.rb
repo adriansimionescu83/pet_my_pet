@@ -1,5 +1,4 @@
 class PetsController < ApplicationController
-
   def index
     @pets = policy_scope(Pet).order(created_at: :desc)
   end
@@ -22,6 +21,26 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find(params[:id])
+    authorize @pet
+  end
+
+  def edit
+    @pet = Pet.find(params[:id])
+    authorize @pet
+  end
+
+  def destroy
+    @pet = Pet.find(params[:id])
+    authorize @pet
+  end
+
+  def update
+    @pet = Pet.find(params[:id])
+    if @pet.update(pet_params)
+      redirect_to pet_path(@pet), notice: 'Your pet was successfully updated.'
+    else
+      render :edit
+    end
     authorize @pet
   end
 

@@ -3,7 +3,7 @@
     <div class="row col-9 my-5">
 
       <div class="pet-form p-5">
-        <h1>Add your pet details</h1>
+        <h1>Edit your pet details</h1>
         <%= simple_form_for @pet do |f| %>
           <%= f.input :name %>
           <%= f.input :gender, collection: Pet::GENDER %>
@@ -14,16 +14,10 @@
           <%= f.input :is_available, as: :select %>
           <%= f.association :species %>
           <%= f.association :breed %>
-          <%= f.submit "Save My Pet", class: "btn btn-flat" %>
+          <%= f.submit "Update My Pet", class: "btn btn-flat" %>
         <% end %>
       </div>
 
     </div>
   </div>
 </div>
-
-
-
-
-
-<%# , collection: Breed.where(species: params[:species]), prompt: "Please select a breed" %>
