@@ -13,8 +13,8 @@
           <%= f.input :description %>
           <%= f.input :price_per_day %>
           <%= f.input :is_available, as: :select %>
-          <%= f.input :species, collection: Species.all %>
-          <%= f.input :breed, collection: Breed.all %>
+          <%= f.association :species %>
+          <%= f.association :breed %>
           <%= f.submit "Save My Pet", class: "btn btn-flat" %>
         <% end %>
       </div>
