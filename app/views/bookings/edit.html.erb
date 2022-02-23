@@ -1,0 +1,7 @@
+<h1>Edit your booking!</h1>
+
+<%= simple_form_for @booking do |f|%>
+<%= f.input :date_start %>
+<%= f.input :date_end %>
+<%= f.submit "Submit date" %>
+<% end %>

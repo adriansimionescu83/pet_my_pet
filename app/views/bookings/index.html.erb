@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row">
+    <h1>All of your bookings 🐶</h1>
+      <% @bookings.each do |booking| %>
+        <%= image_tag "https://cdn1.playbarkrun.com/wp-content/uploads/2018/10/01110638/bernese.jpg", alt:"Big dog" %>
+          <ul>
+            <li><%= booking.pet.name %> is booked from <%= booking.date_start %> to <%= booking.date_end %> <%= link_to "Delete", booking_path(booking), class: "btn btn-flat", method: :delete, data:{ confirm: "Are you sure?" } %></li>
+          </ul>
+  <% end %>
+  </div>
+</div>
