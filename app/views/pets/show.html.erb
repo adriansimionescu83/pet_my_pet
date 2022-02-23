@@ -1,14 +1,20 @@
-      <div class="container col-6">
-        <div class="card justify-content-center">
-          <img src="https://images.unsplash.com/photo-1599692392256-2d084495fe15?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" class="card-img-top" alt="...">
+      <div class="container col-12-sm col-6-md col-6-lg">
+        <div class="card d-flex justify-content-space-between">
+          <img src="https://images.unsplash.com/photo-1599692392256-2d084495fe15?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" class="card-img-left" alt="...">
           <div class="card-body">
             <h2 class="card-title"><strong><%= @pet.name %></strong></h2>
-            <p class="card-text"><%= @pet.description %></p>
+            <p class="card-text"><strong>Description:</strong> <%= @pet.description %></p>
+            <p class="card-text"><strong>Gender:</strong> <%= @pet.gender %></p>
+            <p class="card-text"><strong>Age:</strong> <%= @pet.age %> years</p>
+            <p class="card-text"><strong>Breed:</strong> <%= @pet.breed.name %></p>
+            <p class="card-text"><strong>Species:</strong> <%= @pet.species.name %></p>
+            <p class="card-text"><strong>Location:</strong> <%= @pet.location %></p>
+            <p class="card-text"><strong>Price Info:</strong> AED <%= @pet.price_per_day %> / day</p>
             <hr>
-            <div class="d-flex justify-content-between mt-4">
-              <h6 class="card-subtitle mb-2 text-muted"><strong><%= @pet.average_rating %></strong></h6>
-              <h6 class="card-subtitle mb-2 text-muted"><strong><%= @pet.price_per_day %></strong>AED / Day</h6>
-            </div>
+            <h2 class="card-title"><strong>Owner Details</strong></h2>
+            <p class="card-text"><strong>Name:</strong> <%= @pet.user.first_name %> <%= @pet.user.last_name %></p>
+            <p class="card-text"><strong>Average Rating:</strong> <%= @pet.user.average_rating %></p>
+            <%= link_to 'Request Booking', new_pet_booking_path(@pet), class: "btn btn-primary" %>
           </div>
         </div>
       </div>

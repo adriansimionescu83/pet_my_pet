@@ -1,7 +1,16 @@
-<h1>Create a new booking for your pet!</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="row col-9 my-5">
 
-  <%= simple_form_for [@pet, @booking] do |f|%>
-    <%= f.input :date_start %>
-    <%= f.input :date_end %>
-    <%= f.submit "Submit date" %>
-  <% end %>
+      <div class="pet-form p-5">
+        <h1>Book your pet!</h1>
+          <%= simple_form_for [@pet, @booking] do |f|%>
+            <%= f.input :date_start %>
+            <%= f.input :date_end %>
+            <%= f.submit "Submit request", class: "btn btn-flat"%>
+          <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

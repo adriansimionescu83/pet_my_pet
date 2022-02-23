@@ -1,6 +1,7 @@
 .card {
   border: none;
   background-color: #F4F4F4;
+  margin-top: 20px;
 
     img {
     object-fit: cover;
@@ -16,6 +17,23 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 16px;
   margin: 16px;
+}
+
+.edit-pet {
+  width: 100%;
+
+  .btn-outline-secondary {
+    width: 45%;
+  }
+}
+
+.card-body {
+  .card-title {
+    color: rgb(107, 0, 128);
+  }
+  .fa-star {
+    color: rgb(107, 0, 128);
+  }
 }
 
 // Smallest device
