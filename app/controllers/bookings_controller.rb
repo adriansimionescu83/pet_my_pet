@@ -15,7 +15,8 @@ class BookingsController < ApplicationController
     @booking.user = current_user
     @booking.pet = @pet
     @booking.save
-    redirect_to pet_path(@pet)
+    redirect_to bookings_path(@booking)
+    authorize @booking
   end
 
   def edit
@@ -33,7 +34,8 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
     @booking.delete
 
-    redirect_to booking_path(@booking_path)
+    redirect_to bookings_path(@booking_path)
+    authorize @booking
   end
 
   private
