@@ -9,6 +9,11 @@ class BookingsController < ApplicationController
     authorize @booking
   end
 
+  def show
+    booking_find
+    authorize @booking
+  end
+
   def create
     @booking = Booking.new(booking_params)
     pet_find
