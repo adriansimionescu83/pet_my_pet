@@ -4,12 +4,6 @@ class BookingsController < ApplicationController
     complete_booking
   end
 
-  def new
-    pet_find
-    @booking = Booking.new
-    authorize @booking
-  end
-
   def approve
     booking_find
     @booking.status = 'Approved'

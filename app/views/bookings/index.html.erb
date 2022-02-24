@@ -7,6 +7,7 @@
 <div class="container py-4">
   <div class="row">
       <% @bookings.each do |booking| %>
+<<<<<<< HEAD
         <% if booking.date_end != Date.today %>
           <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
             <div class="card justify-content-center">
@@ -16,6 +17,17 @@
                 <h5 class="card-title"><strong><%= booking.pet.name %> is booked from <%= booking.date_start%> to <%= booking.date_end %></strong></h5>
                 <p class="card-text"><%= booking.pet.description %></p>
                 <hr>
+=======
+        <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+          <div class="card justify-content-center">
+            <%= link_to booking_path(booking) do %>
+              <%= cl_image_tag booking.pet.photo.attached? ? booking.pet.photo.key : "snvvma0kjax51gieabby", class: "puppy-pic", alt: "pet_image"%>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><strong><%= booking.pet.name %> is booked from <%= booking.date_start%> to <%= booking.date_end %></strong></h5>
+              <p class="card-text"><%= booking.pet.description %></p>
+              <hr>
+>>>>>>> master
 
               </div>
               <%= link_to "Delete", booking_path(booking), class: "btn btn-flat", method: :delete, data:{ confirm: "Are you sure?" } %>

@@ -1,10 +1,22 @@
 class PetsController < ApplicationController
   def index
     @pets = policy_scope(Pet).order(created_at: :desc)
+
+
+    @markers = @pets.geocoded.map do |pet|
+      {
+        lat: pet.latitude,
+        lng: pet.longitude,
+        info_window: render_to_string(partial: "info_window", locals: { pet: pet }),
+        image_url: helpers.asset_url("paw-circle.png")
+      }
+    end
+
     if params[:query].present?
       return @pets = Pet.global_search(params[:query])
     else
       return @pets.all
+
     end
   end
 
@@ -27,6 +39,8 @@ class PetsController < ApplicationController
   def show
     @pet = Pet.find(params[:id])
     authorize @pet
+    @booking = Booking.new
+    @marker = [{ lat: @pet.latitude, lng: @pet.longitude, image_url: helpers.asset_url("paw-circle.png") }]
   end
 
   def edit
@@ -36,6 +50,7 @@ class PetsController < ApplicationController
 
   def destroy
     @pet = Pet.find(params[:id])
+    @pet.delete
     authorize @pet
   end
 

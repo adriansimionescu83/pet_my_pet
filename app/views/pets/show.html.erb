@@ -1,20 +1,59 @@
-      <div class="container col-12-sm col-6-md col-6-lg">
-        <div class="card d-flex justify-content-space-between">
-          <%= cl_image_tag @pet.photo.key, class: "card-img-left", alt: "pet_image"%>
-          <div class="card-body">
-            <h2 class="card-title"><strong><%= @pet.name %></strong></h2>
-            <p class="card-text"><strong>Description:</strong> <%= @pet.description %></p>
-            <p class="card-text"><strong>Gender:</strong> <%= @pet.gender %></p>
-            <p class="card-text"><strong>Age:</strong> <%= @pet.age %> years</p>
-            <p class="card-text"><strong>Breed:</strong> <%= @pet.breed.name %></p>
-            <p class="card-text"><strong>Species:</strong> <%= @pet.species.name %></p>
-            <p class="card-text"><strong>Location:</strong> <%= @pet.location %></p>
-            <p class="card-text"><strong>Price Info:</strong> AED <%= @pet.price_per_day %> / day</p>
-            <hr>
+<! -------------- banner with pet image -------------- >
+
+<div class="index-banner" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url('<%= cl_image_path @pet.photo.attached? ? @pet.photo.key : "snvvma0kjax51gieabby" %>')">
+</div>
+
+<%# class: "card-img-left" %>
+
+<div class="container">
+  <%= link_to 'Back', pets_path, class: "btn btn-outline mx-4" %>
+  
+  <! -------------- pet details -------------- >
+  <div class="col-12-sm col-6-md col-6-lg">
+    <div class="card d-flex justify-content-space-between">
+      <div class="card-body">
+        <h2 class="card-title"><strong><%= @pet.name %></strong></h2>
+        <p class="card-text"><strong>Description:</strong> <%= @pet.description %></p>
+        <p class="card-text"><strong>Gender:</strong> <%= @pet.gender %></p>
+        <p class="card-text"><strong>Age:</strong> <%= @pet.age %> years</p>
+        <p class="card-text"><strong>Breed:</strong> <%= @pet.breed.name %></p>
+        <p class="card-text"><strong>Species:</strong> <%= @pet.species.name %></p>
+        <p class="card-text"><strong>Location:</strong> <%= @pet.location %></p>
+        <p class="card-text"><strong>Price Info:</strong> AED <%= @pet.price_per_day %> / day</p>
+        <br>
+        <hr>
+        <br>
+        <! -------------- owner details -------------- >
+        <div class="d-flex">
+          <%= cl_image_tag @pet.user.photo.key, class: "rounded", style: "width: 10%; height: 100%;"%>
+          <div class="mx-4">
             <h2 class="card-title"><strong>Owner Details</strong></h2>
             <p class="card-text"><strong>Name:</strong> <%= @pet.user.first_name %> <%= @pet.user.last_name %></p>
             <p class="card-text"><strong>Average Rating:</strong> <%= @pet.user.average_rating %></p>
-            <%= link_to 'Request Booking', new_pet_booking_path(@pet), class: "btn btn-primary" %>
           </div>
         </div>
+        <br>
+        <% if current_user != @pet.user %>
+        <hr>
+          <h2 class="card-title"><strong>Take me home!</strong></h2>
+          <%= simple_form_for [@pet, @booking] do |f|%>
+            <%= f.input :date_start, as: :date, html5: true %>
+            <%= f.input :date_end, as: :date, html5: true %>
+            <%= f.submit "Submit request", class: "btn btn-flat"%>
+          <% end %>
+        <% end %>          
+        
       </div>
+    </div>
+  </div>
+
+  <! -------------- map with pet location -------------- >
+  <div class="d-flex justify-content-center mt-4 mb-5">
+    <div style="width: 100%; height: 400px;"
+      data-controller="mapbox"
+      data-mapbox-markers-value="<%= @marker.to_json %>"
+      data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
+  </div>
+
+</div>

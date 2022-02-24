@@ -6,11 +6,25 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# --------------------------- Cloudinary user and pet images ---------------------------
+
+User.all.each do |user|
+  if user.photo.key.nil?
+    user.photo.key = 'prtuvxe5plh24afj3aibfg8gpvfl'
+  end
+end
+Pet.all.each do |pet|
+  if pet.photo.key.nil?
+    pet.photo.key = 'prtuvxe5plh24afj3aibfg8gpvfl'
+  end
+end
+
 # --------------------------- Dogs ---------------------------
 
 # dog = Species.create(name: "Dog")
 # golden_retriever = Breed.create(name: "Golden Retriever", species_id: dog.id)
 # bulldog = Breed.create(name: "Bulldog", species_id: dog.id)
+<<<<<<< HEAD
 
 # Pet.create(
 #   name: "Cooper",
@@ -22,6 +36,20 @@
 #   average_rating: 5,
 #   breed_id: golden_retriever.id
 # )
+=======
+
+
+Pet.create(
+  name: "Cooper",
+  gender: "Male",
+  age: 2,
+  description: "Nice Dog, very playfull and good companion",
+  price_per_day: 22.00,
+  is_available: true,
+  average_rating: 5,
+  breed_id: golden_retriever.id,
+)
+>>>>>>> master
 
 # Pet.create(
 #   name: "Maggie",
@@ -70,6 +98,7 @@
 # Pet.create(
 #   name: "Peter",
 #   gender: "Male",
+
 #   age: 4,
 #   description: "He is so friendly and loves carrots!",
 #   price_per_day: 15.00,
@@ -89,11 +118,15 @@
 #   breed_id: holland_lop.id
 # )
 
+
 User.all.each do |user|
   if user.photo.key.nil?
     user.photo.key = 'prtuvxe5plh24afj3aibfg8gpvfl'
+
   end
 end
+
+>>>>>>> master
 Pet.all.each do |pet|
   if pet.photo.key.nil?
     pet.photo.key = 'prtuvxe5plh24afj3aibfg8gpvfl'
