@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
   def index
     @bookings = policy_scope(Booking).order(created_at: :desc)
+    complete_booking
   end
 
   def approve
@@ -67,5 +68,12 @@ class BookingsController < ApplicationController
 
   def booking_find
     @booking = Booking.find(params[:id])
+  end
+
+  def complete_booking
+    @bookings = policy_scope(Booking).order(created_at: :desc)
+    @bookings.each do |booking|
+      booking.status = "Completed" if booking.date_end < Date.today
+    end
   end
 end

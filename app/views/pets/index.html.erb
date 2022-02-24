@@ -15,7 +15,7 @@
     <% @pets.each do |pet| %>
       <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
         <div class="card justify-content-center">
-
+          <% if pet.is_available %>
           <%= link_to pet_path(pet) do %>
             <%= cl_image_tag pet.photo.attached? ? pet.photo.key : "snvvma0kjax51gieabby", class: "card-img-top", alt: "pet_image"%>
           <% end %>
@@ -24,14 +24,13 @@
             <p class="card-text"><%= pet.description %></p>
             <hr>
 
-            <div class="d-flex justify-content-between align-items-center mt-4">
-              <div class="d-flex justify-content-center align-items-center mb-2">
-                <i class="fas fa-star"></i>
-                <h6 class="card-subtitle text-muted"><strong><%= pet.average_rating %></strong></h6>
-              </div>
-              <h6 class="card-subtitle mb-2 text-muted"><strong>AED <%= pet.price_per_day %></strong> / day</h6>
-            </div>
-
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                  <div class="d-flex justify-content-center align-items-center mb-2">
+                    <i class="fas fa-star"></i>
+                    <h6 class="card-subtitle text-muted"><strong><%= pet.average_rating %></strong></h6>
+                  </div>
+                  <h6 class="card-subtitle mb-2 text-muted"><strong>AED <%= pet.price_per_day %></strong> / day</h6>
+                </div>
             <div class="edit-pet d-flex justify-content-between">
 
               <% if policy(pet).edit?  %>
@@ -43,6 +42,7 @@
             </div>
 
           </div>
+          <% end %>
         </div>
       </div>
     <% end %>
