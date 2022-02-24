@@ -37,7 +37,7 @@ class PetsController < ApplicationController
   def update
     @pet = Pet.find(params[:id])
     if @pet.update(pet_params)
-      redirect_to pet_path(@pet), notice: 'Your pet was successfully updated.'
+      redirect_to pets_path, notice: 'Your pet was successfully updated.'
     else
       render :edit
     end
@@ -47,6 +47,6 @@ class PetsController < ApplicationController
   private
 
   def pet_params
-    params.require(:pet).permit(:name, :gender, :age, :description, :price_per_day, :location, :is_available, :breed_id, :species_id, :user_id)
+    params.require(:pet).permit(:name, :gender, :age, :description, :price_per_day, :location, :is_available, :breed_id, :species_id, :user_id, :photo)
   end
 end

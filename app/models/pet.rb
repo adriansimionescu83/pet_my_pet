@@ -9,4 +9,5 @@ class Pet < ApplicationRecord
   belongs_to :species
   belongs_to :user
   has_many :reviews, through: :bookings
+  has_one_attached :photo, service: :cloudinary
 end
