@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
   def index
     @bookings = policy_scope(Booking).order(created_at: :desc)
+    complete_booking
   end
 
   def approve
@@ -73,5 +74,12 @@ class BookingsController < ApplicationController
   def calculate_amount
     @number_of_days = @booking.date_end - @booking.date_start
     @booking.total_amount = @booking.pet.price_per_day * @number_of_days
+  end
+
+  def complete_booking
+    @bookings = policy_scope(Booking).order(created_at: :desc)
+    @bookings.each do |booking|
+      booking.status = "Completed" if booking.date_end < Date.today
+    end
   end
 end
