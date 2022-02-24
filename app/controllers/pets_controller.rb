@@ -10,12 +10,12 @@ class PetsController < ApplicationController
         info_window: render_to_string(partial: "info_window", locals: { pet: pet }),
         image_url: helpers.asset_url("paw-circle.png")
       }
+    end
 
     if params[:query].present?
       return @pets = Pet.global_search(params[:query])
     else
       return @pets.all
-
     end
   end
 
