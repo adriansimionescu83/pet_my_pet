@@ -1,4 +1,4 @@
-class AddDurationOnBookings < ActiveRecord::Migration[6.1]
+class AddDurationOnBookingsCorrection < ActiveRecord::Migration[6.1]
   def change
     add_column :bookings, :duration, :integer
   end

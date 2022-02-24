@@ -5,7 +5,7 @@
             <h2 class="card-title"><strong><%= @booking.pet.name %></strong></h2>
             <p class="card-text"><strong>From Date:</strong> <%= @booking.date_start %></p>
             <p class="card-text"><strong>To Date:</strong> <%= @booking.date_end %></p>
-            <p class="card-text"><strong>Number of Days:</strong> <%= @booking.date_end %></p>
+            <p class="card-text"><strong>Number of Days:</strong> <%= @booking.duration %></p>
             <p class="card-text"><strong>Price per Day:</strong> <%= @booking.pet.price_per_day %> AED</p>
             <p class="card-text"><strong>Total Amount: </strong> <%= @booking.total_amount.nil? ? "0.00" : @booking.total_amount %> AED </p>
             <p class="card-text"><strong>Status:</strong>  <%= @booking.status %></p>

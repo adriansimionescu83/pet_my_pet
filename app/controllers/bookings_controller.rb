@@ -32,7 +32,8 @@ class BookingsController < ApplicationController
     pet_find
     @booking.user = current_user
     @booking.pet = @pet
-    calculate_amount
+    @booking.duration = @booking.date_end - @booking.date_start
+    @booking.total_amount = @booking.pet.price_per_day * @booking.duration
     @booking.save
     redirect_to bookings_path(@booking)
     authorize @booking
@@ -45,6 +46,8 @@ class BookingsController < ApplicationController
   def update
     booking_find
     @booking.update(booking_params)
+    @booking.duration = @booking.date_end - @booking.date_start
+    @booking.total_amount = @booking.pet.price_per_day * @booking.duration
 
     redirect_to booking_path(@booking)
   end
@@ -69,11 +72,6 @@ class BookingsController < ApplicationController
 
   def booking_find
     @booking = Booking.find(params[:id])
-  end
-
-  def calculate_amount
-    @number_of_days = @booking.date_end - @booking.date_start
-    @booking.total_amount = @booking.pet.price_per_day * @number_of_days
   end
 
   def complete_booking
