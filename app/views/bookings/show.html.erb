@@ -11,7 +11,7 @@
             <h2 class="card-title"><strong>Renter Details</strong></h2>
             <p class="card-text"><strong>Name:</strong> <%= @booking.user.first_name %> <%= @booking.user.last_name %></p>
             <p class="card-text"><strong>Average Rating:</strong> <%= @booking.user.average_rating %></p>
-            <%= link_to 'Approve', booking_path(@booking), class: "btn btn-primary" %>    <%= link_to 'Reject', booking_path(@booking), class: "btn btn-primary" %>
+            <a href="<%=@booking.id%>/approve", class="btn btn-primary"> Approve </a>    <a href="<%=@booking.id%>/reject", class="btn btn-primary"> Reject </a>
           </div>
         </div>
       </div>
