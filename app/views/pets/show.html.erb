@@ -14,7 +14,7 @@
             <h2 class="card-title"><strong>Owner Details</strong></h2>
             <p class="card-text"><strong>Name:</strong> <%= @pet.user.first_name %> <%= @pet.user.last_name %></p>
             <p class="card-text"><strong>Average Rating:</strong> <%= @pet.user.average_rating %></p>
-            <%= link_to 'Request Booking', new_pet_booking_path(@pet), class: "btn btn-primary" %>
+            <%= link_to 'Request Booking', new_pet_booking_path(@pet), class: "btn btn-flat" %>
           </div>
         </div>
       </div>

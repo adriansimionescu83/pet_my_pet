@@ -27,6 +27,7 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'devise'
 gem 'pundit'
+gem "geocoder"
 
 
 

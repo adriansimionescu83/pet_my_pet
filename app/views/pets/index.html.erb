@@ -1,11 +1,17 @@
-<! Add map at the top>
-<div class="index-banner" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url(https://www.hotelgift.com/wp-content/uploads/2017/10/dubai-map.png);">
+
+<div class="row">
+  <! -------------- map -------------- >
+  <div style="width: 100%; height: 400px;"
+    data-controller="mapbox"
+    data-mapbox-markers-value="<%= @markers.to_json %>"
+    data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
 </div>
 
-<div class="container">
-  <div class="row">
-
   <! -------------- pet cards -------------- >
+<div class="container">
+
+  <div class="row">
     <% @pets.each do |pet| %>
       <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
         <div class="card justify-content-center">
