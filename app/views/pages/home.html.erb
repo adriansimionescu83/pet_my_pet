@@ -1,7 +1,13 @@
 <div class="home-banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://res.cloudinary.com/dfcr2srmr/image/upload/v1645688759/pet-my-pet/z8uu0jsauv9ny1kqtsl6.jpg);">
   <div class="container">
-    <h1 class="mb-4">Search form here</h1>
-    <%= link_to "Search", pets_path, class: "btn btn-flat" %>
+    <%= form_tag pets_path, method: :get do %>
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control",
+        placeholder: "Find a pet"
+      %>
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+    <% end %>
   </div>
 </div>
 
