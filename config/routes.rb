@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :pets
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :pets do
-    resources :bookings, only: %i[new create]
+    resources :bookings, only: %i[create]
   end
 
   resources :bookings, only: %i[index destroy edit update show]
