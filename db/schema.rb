@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(version: 2022_02_24_091936) do
     t.bigint "breed_id"
     t.bigint "user_id"
     t.bigint "species_id"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["breed_id"], name: "index_pets_on_breed_id"
     t.index ["species_id"], name: "index_pets_on_species_id"
     t.index ["user_id"], name: "index_pets_on_user_id"
