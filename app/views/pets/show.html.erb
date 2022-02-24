@@ -1,6 +1,6 @@
       <div class="container col-12-sm col-6-md col-6-lg">
         <div class="card d-flex justify-content-space-between">
-          <%= cl_image_tag @pet.photo.key, class: "card-img-left", alt: "pet_image"%>
+          <%= cl_image_tag @pet.photo.attached? ? @pet.photo.key : "snvvma0kjax51gieabby", class: "card-img-left", alt: "pet_image"%>
           <div class="card-body">
             <h2 class="card-title"><strong><%= @pet.name %></strong></h2>
             <p class="card-text"><strong>Description:</strong> <%= @pet.description %></p>
@@ -14,7 +14,15 @@
             <h2 class="card-title"><strong>Owner Details</strong></h2>
             <p class="card-text"><strong>Name:</strong> <%= @pet.user.first_name %> <%= @pet.user.last_name %></p>
             <p class="card-text"><strong>Average Rating:</strong> <%= @pet.user.average_rating %></p>
-            <%= link_to 'Request Booking', new_pet_booking_path(@pet), class: "btn btn-primary" %>
+            <% if current_user != @pet.user %>
+            <hr>
+              <h2 class="card-title"><strong>Take me home!</strong></h2>
+              <%= simple_form_for [@pet, @booking] do |f|%>
+                <%= f.input :date_start, as: :date, html5: true %>
+                <%= f.input :date_end, as: :date, html5: true %>
+                <%= f.submit "Submit request", class: "btn btn-flat"%>
+              <% end %>
+            <% end %>
           </div>
         </div>
       </div>

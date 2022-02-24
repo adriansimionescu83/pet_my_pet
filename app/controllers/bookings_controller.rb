@@ -3,12 +3,6 @@ class BookingsController < ApplicationController
     @bookings = policy_scope(Booking).order(created_at: :desc)
   end
 
-  def new
-    pet_find
-    @booking = Booking.new
-    authorize @booking
-  end
-
   def approve
     booking_find
     @booking.status = 'Approved'

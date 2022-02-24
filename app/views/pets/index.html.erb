@@ -11,8 +11,7 @@
         <div class="card justify-content-center">
 
           <%= link_to pet_path(pet) do %>
-           <%# <img src="https://images.unsplash.com/photo-1599692392256-2d084495fe15?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" class="card-img-top" alt="..."> %>
-            <%= cl_image_tag pet.photo.key, class: "card-img-top", alt: "pet_image"%>
+            <%= cl_image_tag pet.photo.attached? ? pet.photo.key : "snvvma0kjax51gieabby", class: "card-img-top", alt: "pet_image"%>
           <% end %>
           <div class="card-body">
             <h5 class="card-title"><strong><%= pet.name %></strong></h5>
@@ -28,7 +27,7 @@
             </div>
 
             <div class="edit-pet d-flex justify-content-between">
-              <% if pet.user == current_user  %>
+              <% if policy(pet).edit? %>
                 <%= link_to 'Edit', edit_pet_path(pet), class: "btn btn-outline-secondary"%>
                 <%= link_to 'Delete', pet_path(pet), class: "btn btn-outline-secondary",
                     method: :delete,

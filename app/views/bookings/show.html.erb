@@ -1,11 +1,11 @@
       <div class="container col-12-sm col-6-md col-6-lg">
         <div class="card d-flex justify-content-space-between">
-          <img src="https://images.unsplash.com/photo-1599692392256-2d084495fe15?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" class="card-img-left" alt="...">
-          <div class="card-body">
+          <%= cl_image_tag @booking.pet.photo.attached? ? @booking.pet.photo.key : "snvvma0kjax51gieabby", class: "card-img-left", alt: "pet_image"%>
+            <div class="card-body">
             <h2 class="card-title"><strong><%= @booking.pet.name %></strong></h2>
             <p class="card-text"><strong>From Date:</strong> <%= @booking.date_start %></p>
             <p class="card-text"><strong>To Date:</strong> <%= @booking.date_end %></p>
-            <p class="card-text"><strong>Total Amount</strong> AED <%= @booking.total_amount %></p>
+            <p class="card-text"><strong>Total Amount: </strong> <%= @booking.total_amount.nil? ? "0.00" : @booking.total_amount %> AED </p>
             <p class="card-text"><strong>Status:</strong>  <%= @booking.status %></p>
             <hr>
             <h2 class="card-title"><strong>Renter Details</strong></h2>
