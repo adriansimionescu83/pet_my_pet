@@ -1,12 +1,13 @@
-
 <! -------------- banner with pet image -------------- >
 
-<div class="index-banner" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url('<%= cl_image_path @pet.photo.key %>')">
+<div class="index-banner" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url('<%= cl_image_path @pet.photo.attached? ? @pet.photo.key : "snvvma0kjax51gieabby" %>')">
 </div>
 
 <%# class: "card-img-left" %>
 
 <div class="container">
+  <%= link_to 'Back', pets_path, class: "btn btn-outline mx-4" %>
+  
   <! -------------- pet details -------------- >
   <div class="col-12-sm col-6-md col-6-lg">
     <div class="card d-flex justify-content-space-between">
@@ -32,10 +33,16 @@
           </div>
         </div>
         <br>
-        <div class="d-flex">
-        <%= link_to 'Request Booking', new_pet_booking_path(@pet), class: "btn btn-flat" %>
-        <%= link_to 'Back', pets_path, class: "btn btn-outline mx-4" %>
-        </div>
+        <% if current_user != @pet.user %>
+        <hr>
+          <h2 class="card-title"><strong>Take me home!</strong></h2>
+          <%= simple_form_for [@pet, @booking] do |f|%>
+            <%= f.input :date_start, as: :date, html5: true %>
+            <%= f.input :date_end, as: :date, html5: true %>
+            <%= f.submit "Submit request", class: "btn btn-flat"%>
+          <% end %>
+        <% end %>          
+        
       </div>
     </div>
   </div>

@@ -6,12 +6,8 @@ class BookingPolicy < ApplicationPolicy
     end
   end
 
-  def new?
-    true
-  end
-
   def create?
-    true
+    record.pet.user != user
   end
 
   def approve?
