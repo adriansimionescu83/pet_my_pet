@@ -1,6 +1,11 @@
 class PetsController < ApplicationController
   def index
     @pets = policy_scope(Pet).order(created_at: :desc)
+    if params[:query].present?
+      return @pets = Pet.global_search(params[:query])
+    else
+      return @pets.all
+    end
   end
 
   def new
