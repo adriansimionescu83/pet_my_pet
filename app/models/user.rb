@@ -6,4 +6,5 @@ class User < ApplicationRecord
   has_many :bookings
   has_many :pets
   has_one_attached :photo, service: :cloudinary
+  has_many :reviews, dependent: :destroy
 end

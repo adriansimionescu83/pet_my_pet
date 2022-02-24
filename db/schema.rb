@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_24_091936) do
+ActiveRecord::Schema.define(version: 2022_02_24_130226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,9 +78,22 @@ ActiveRecord::Schema.define(version: 2022_02_24_091936) do
     t.bigint "breed_id"
     t.bigint "user_id"
     t.bigint "species_id"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["breed_id"], name: "index_pets_on_breed_id"
     t.index ["species_id"], name: "index_pets_on_species_id"
     t.index ["user_id"], name: "index_pets_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.text "content"
+    t.integer "rating"
+    t.bigint "user_id", null: false
+    t.bigint "booking_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["booking_id"], name: "index_reviews_on_booking_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "species", force: :cascade do |t|
@@ -112,4 +125,6 @@ ActiveRecord::Schema.define(version: 2022_02_24_091936) do
   add_foreign_key "breeds", "species"
   add_foreign_key "pets", "species"
   add_foreign_key "pets", "users"
+  add_foreign_key "reviews", "bookings"
+  add_foreign_key "reviews", "users"
 end
