@@ -36,3 +36,15 @@ local:
 cloudinary:
   service: Cloudinary
   folder: <%= Rails.env %>
+
+cloudinary_pets:
+  service: Cloudinary
+  folder: pet-my-pet/<%= Rails.env %>/pets
+
+cloudinary_users:
+  service: Cloudinary
+  folder: pet-my-pet/<%= Rails.env %>/users
+
+cloudinary_assets:
+  service: Cloudinary
+  folder: pet-my-pet/<%= Rails.env %>/assets

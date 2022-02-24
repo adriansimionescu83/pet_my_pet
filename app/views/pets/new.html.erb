@@ -12,9 +12,9 @@
           <%= f.input :location %>
           <%= f.input :description %>
           <%= f.input :price_per_day %>
-          <%= f.input :is_available, as: :select %>
-          <%= f.input :species, collection: Species.all %>
-          <%= f.input :breed, collection: Breed.all %>
+          <%= f.association :species %>
+          <%= f.association :breed %>
+          <%= f.input :photo, as: :file %>
           <%= f.submit "Save My Pet", class: "btn btn-flat" %>
         <% end %>
       </div>
@@ -22,10 +22,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-<%# , collection: Breed.where(species: params[:species]), prompt: "Please select a breed" %>
-
-<%# input_html: {data: {all_types: Breed.all.includes(:species).map {|b| {breed_id: b.id, species_id: b.species.id}}.to_json}} %>
