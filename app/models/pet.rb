@@ -9,6 +9,12 @@ class Pet < ApplicationRecord
   belongs_to :species
   belongs_to :user
   has_many :reviews, through: :bookings
+
+
+  geocoded_by :location
+  after_validation :geocode, if: :will_save_change_to_location?
+
+
   include PgSearch::Model
   pg_search_scope :global_search,
     against: %i[name location],
@@ -19,5 +25,6 @@ class Pet < ApplicationRecord
     using: {
       tsearch: { prefix: true }
     }
+
   has_one_attached :photo, service: :cloudinary
 end
