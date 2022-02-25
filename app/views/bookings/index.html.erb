@@ -7,7 +7,8 @@
 <div class="container py-4">
   <div class="row">
       <% @bookings.each do |booking| %>
-        <% if booking.status == 'Completed' %>
+      <% if booking.status != "Completed" %>
+
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
           <div class="card justify-content-center">
             <%= link_to booking_path(booking) do %>
@@ -17,6 +18,7 @@
               <h5 class="card-title"><strong><%= booking.pet.name %> is booked from <%= booking.date_start%> to <%= booking.date_end %></strong></h5>
               <p class="card-text"><%= booking.pet.description %></p>
               <hr>
+
               </div>
               <%= link_to "Delete", booking_path(booking), class: "btn btn-flat", method: :delete, data:{ confirm: "Are you sure?" } %>
             </div>
