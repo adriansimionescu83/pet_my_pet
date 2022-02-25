@@ -34,8 +34,11 @@ class BookingsController < ApplicationController
     @booking.pet = @pet
     @booking.duration = @booking.date_end - @booking.date_start
     @booking.total_amount = @booking.pet.price_per_day * @booking.duration
-    @booking.save
-    redirect_to bookings_path(@booking)
+    if @booking.save
+      redirect_to bookings_path
+    else
+      render :index
+    end
     authorize @booking
   end
 
@@ -54,16 +57,19 @@ class BookingsController < ApplicationController
 
   def destroy
     booking_find
-    @booking.delete
+    if @booking.delete
+      redirect_to bookings_path(@booking_path)
+    else
+      render :index
+    end
 
-    redirect_to bookings_path(@booking_path)
     authorize @booking
   end
 
   private
 
   def booking_params
-    params.require(:booking).permit(:date_start, :date_end)
+    params.require(:booking).permit(:date_start, :date_end, :message)
   end
 
   def pet_find
