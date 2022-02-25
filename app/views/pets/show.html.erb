@@ -9,6 +9,7 @@
 
   <%= link_to 'Back', pets_path, class: "btn btn-outline mt-4 mx-3" %>
 
+
   <! -------------- pet details -------------- >
   <div class="col-12-sm col-6-md col-6-lg">
     <div class="card d-flex justify-content-space-between">
@@ -38,6 +39,7 @@
         <hr>
           <h2 class="card-title"><strong>Take me home!</strong></h2>
           <%= simple_form_for [@pet, @booking] do |f|%>
+            <%= f.input :message, as: :text%>
             <%= f.input :date_start, as: :date, html5: true %>
             <%= f.input :date_end, as: :date, html5: true %>
             <%= f.submit "Submit request", class: "btn btn-flat"%>
@@ -61,6 +63,7 @@
             <% end %>
           <% end %>
         </div>
+
 
       </div>
     </div>

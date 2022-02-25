@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2022_02_24_130226) do
+=======
+ActiveRecord::Schema.define(version: 2022_02_24_143157) do
+>>>>>>> master
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +56,8 @@ ActiveRecord::Schema.define(version: 2022_02_24_130226) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "message"
+    t.integer "duration", default: 0
     t.index ["pet_id"], name: "index_bookings_on_pet_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -85,6 +91,7 @@ ActiveRecord::Schema.define(version: 2022_02_24_130226) do
     t.index ["user_id"], name: "index_pets_on_user_id"
   end
 
+<<<<<<< HEAD
   create_table "reviews", force: :cascade do |t|
     t.text "content"
     t.integer "rating"
@@ -105,6 +112,8 @@ ActiveRecord::Schema.define(version: 2022_02_24_130226) do
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
   end
 
+=======
+>>>>>>> master
   create_table "species", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
