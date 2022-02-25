@@ -8,6 +8,7 @@
   <div class="row">
       <% @bookings.each do |booking| %>
       <% if booking.status != "Completed" %>
+
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
           <div class="card justify-content-center">
             <%= link_to booking_path(booking) do %>

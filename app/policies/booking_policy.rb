@@ -19,7 +19,7 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def show?
-    record.pet.user == user # We are showing the bookings only for pet owners
+    record.pet.user == user || owner? # We are showing the bookings only for pet owners
   end
 
   def destroy?
