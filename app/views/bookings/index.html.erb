@@ -1,10 +1,13 @@
 <div class="index-banner" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url(https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80);">
-  <h1>All your bookings</h1>
+  <h1>My Bookings</h1>
 </div>
 
-<center><h1>Current Booking</h1></center>
+<br>
+<br>
+
 
 <div class="container py-4">
+  <center><h1><strong>Current Bookings</strong></h1></center>
   <div class="row">
       <% @bookings.each do |booking| %>
         <% if booking.status != "Completed" %>
@@ -27,9 +30,12 @@
   </div>
 </div>
 
-<center><h1>Past Booking</h1></center>
+<br>
+<br>
+
 
 <div class="container py-4">
+  <center><h1><strong>Past Bookings</strong></h1></center>
   <div class="row">
         <% @bookings.each do |booking| %>
           <% if booking.date_end == Date.today %>

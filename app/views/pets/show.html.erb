@@ -6,8 +6,9 @@
 <%# class: "card-img-left" %>
 
 <div class="container">
-  <%= link_to 'Back', pets_path, class: "btn btn-outline mx-4" %>
-  
+
+  <%= link_to 'Back', pets_path, class: "btn btn-outline mt-4 mx-3" %>
+
   <! -------------- pet details -------------- >
   <div class="col-12-sm col-6-md col-6-lg">
     <div class="card d-flex justify-content-space-between">
@@ -41,8 +42,26 @@
             <%= f.input :date_end, as: :date, html5: true %>
             <%= f.submit "Submit request", class: "btn btn-flat"%>
           <% end %>
-        <% end %>          
-        
+        <% end %>
+        <br>
+        <hr>
+        <br>
+
+        <! -------------- reviews -------------- >
+        <h2 class="card-title">
+          <strong><%= pluralize @pet.reviews.size, "review" %></strong>
+        </h2>
+
+        <div id="reviews">
+          <% if @pet.reviews.blank? %>
+            <%= @pet.name %> doesn't have any reviews yet.
+          <% else %>
+            <% @pet.reviews.each do |review| %>
+              <p><%= review.content %></p>
+            <% end %>
+          <% end %>
+        </div>
+
       </div>
     </div>
   </div>

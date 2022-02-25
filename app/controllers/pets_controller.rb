@@ -40,6 +40,10 @@ class PetsController < ApplicationController
     authorize @pet
     @booking = Booking.new
     @marker = [{ lat: @pet.latitude, lng: @pet.longitude, image_url: helpers.asset_url("paw-circle.png") }]
+    @reviews = Review.all
+    @reviews.select do |review|
+      review.booking.pet_id == @pet.id
+    end
   end
 
   def edit

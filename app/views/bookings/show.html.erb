@@ -1,29 +1,38 @@
 <div class="container col-12-sm col-6-md col-6-lg">
 
   <div class="card d-flex justify-content-space-between">
-    <%= cl_image_tag @booking.pet.photo.attached? ? @booking.pet.photo.key : "snvvma0kjax51gieabby", class: "card-img-left", alt: "pet_image"%>
+    <%= cl_image_tag @booking.pet.photo.attached? ? @booking.pet.photo.key : "snvvma0kjax51gieabby", class: "card-img-left pt-3", alt: "pet_image"%>
     <div class="card-body">
-      <h2 class="card-title"><strong><%= @booking.pet.name %></strong></h2>
-      <p class="card-text"><strong>From Date:</strong> <%= @booking.date_start %></p>
-      <p class="card-text"><strong>To Date:</strong> <%= @booking.date_end %></p>
+      <h2 class="card-title mt-3"><strong><%= @booking.pet.name %></strong></h2>
+      <p class="card-text"><strong>From Date:</strong> <%= @booking.date_start.strftime('%a %d %b %Y') %></p>
+      <p class="card-text"><strong>To Date:</strong> <%= @booking.date_end.strftime('%a %d %b %Y') %></p>
       <p class="card-text"><strong>Total Amount: </strong> <%= @booking.total_amount.nil? ? "0.00" : @booking.total_amount %> AED </p>
       <p class="card-text"><strong>Status:</strong>  <%= @booking.status %></p>
+      <br>
       <hr>
+      <br>
       <h2 class="card-title"><strong>Renter Details</strong></h2>
       <p class="card-text"><strong>Name:</strong> <%= @booking.user.first_name %> <%= @booking.user.last_name %></p>
       <p class="card-text"><strong>Average Rating:</strong> <%= @booking.user.average_rating %></p>
-      <a href="<%=@booking.id%>/approve", class="btn btn-primary"> Approve </a>
-      <a href="<%=@booking.id%>/reject", class="btn btn-primary"> Reject </a>
+      <br>
+      <a href="<%=@booking.id%>/approve", class="btn btn-flat"> Approve </a>
+      <a href="<%=@booking.id%>/reject", class="btn btn-outline"> Reject </a>
     </div>
+    <br>
   </div>
 
-  <div class="p-5">
-    <h1>Review</h1>
-    <%= simple_form_for [@booking, @review] do |f| %>
-      <%= f.input :rating %>
-      <%= f.input :content %>
-      <%= f.submit "Submit Review", class: "btn btn-flat" %>
-    <% end %>
-  </div>
+  <% if @booking.status.downcase == "completed".downcase %>
+
+    <hr>
+    <br>
+    <div class="p-5">
+      <h1>Review</h1>
+      <%= simple_form_for [@booking, @review] do |f| %>
+        <%= f.input :rating %>
+        <%= f.input :content %>
+        <%= f.submit "Submit Review", class: "btn btn-flat" %>
+      <% end %>
+    </div>
+  <% end %>
 
 </div>
