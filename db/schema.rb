@@ -98,6 +98,18 @@ ActiveRecord::Schema.define(version: 2022_02_25_100058) do
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.text "content"
+    t.integer "rating"
+    t.bigint "user_id", null: false
+    t.bigint "booking_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["booking_id"], name: "index_reviews_on_booking_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+
+  end
+
   create_table "species", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -127,4 +139,6 @@ ActiveRecord::Schema.define(version: 2022_02_25_100058) do
   add_foreign_key "breeds", "species"
   add_foreign_key "pets", "species"
   add_foreign_key "pets", "users"
+  add_foreign_key "reviews", "bookings"
+  add_foreign_key "reviews", "users"
 end
