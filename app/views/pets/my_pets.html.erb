@@ -1,22 +1,12 @@
-
-
-<div class="row">
- <! -------------- map -------------- >
-  <div style="width: 100%; height: 400px;"
-    data-controller="mapbox"
-    data-mapbox-markers-value="<%= @markers.to_json %>"
-    data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-  </div>
- </div>
-
-  <! -------------- pet cards -------------- >
+<! -------------- pet cards -------------- >
 <div class="container mt-4">
 
   <div class="row">
     <% @pets.each do |pet| %>
       <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
         <div class="card justify-content-center">
-          <% if pet.is_available %>
+          <% if policy(pet).edit?  %>
+
           <%= link_to pet_path(pet) do %>
             <%= cl_image_tag pet.photo.attached? ? pet.photo.key : "snvvma0kjax51gieabby", class: "card-img-top", alt: "pet_image"%>
           <% end %>
