@@ -8,6 +8,14 @@ class ReviewsController < ApplicationController
     @review.booking = @booking
     @review.save
     redirect_to booking_path(@booking)
+
+    @pet = @booking.pet
+    sum = 0
+    @pet.reviews.each do |review|
+      sum += review.rating
+    end
+    @pet.average_rating = (sum / @pet.reviews.count.to_f).round(1)
+    @pet.save
     authorize @review
   end
 
