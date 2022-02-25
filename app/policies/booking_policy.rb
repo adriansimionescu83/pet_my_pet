@@ -11,15 +11,19 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def approve?
-    show?
+    owner?
   end
 
   def reject?
-    show?
+    owner?
+  end
+
+  def completed?
+    owner?
   end
 
   def show?
-    record.pet.user == user || owner? # We are showing the bookings only for pet owners
+    renter? || owner? # We are showing the bookings only for pet owners
   end
 
   def destroy?
@@ -29,6 +33,10 @@ class BookingPolicy < ApplicationPolicy
   private
 
   def owner?
+    record.pet.user == user
+  end
+
+  def renter?
     record.user == user
   end
 end
