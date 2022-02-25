@@ -18,6 +18,10 @@ class PetsController < ApplicationController
     end
   end
 
+  def my_pets
+    @pets = policy_scope(Pet).where(user_id: current_user.id).order(created_at: :desc)
+  end
+
   def new
     @pet = Pet.new
     authorize @pet
@@ -27,11 +31,15 @@ class PetsController < ApplicationController
     @pet = Pet.new(pet_params)
     @pet.user = current_user
     if @pet.save
-      redirect_to pets_path
+      redirect_to my_pets_path
     else
       render :new
     end
     authorize @pet
+    if current_user.is_pet_owner == false
+      current_user.is_pet_owner = true
+      current_user.save
+    end
   end
 
   def show
@@ -48,14 +56,27 @@ class PetsController < ApplicationController
 
   def destroy
     @pet = Pet.find(params[:id])
-    @pet.delete
+    if @pet.delete
+      redirect_to my_pets_path, notice: 'Your pet was successfully deleted.'
+    else
+      render :my_pets
+    end
     authorize @pet
+
+    if current_user.is_pet_owner != pet_owner?
+      current_user.is_pet_owner = pet_owner?
+      current_user.save
+    end
   end
 
   def update
     @pet = Pet.find(params[:id])
+    if current_user.is_pet_owner != pet_owner?
+      current_user.is_pet_owner = pet_owner?
+      current_user.save
+    end
     if @pet.update(pet_params)
-      redirect_to pets_path, notice: 'Your pet was successfully updated.'
+      redirect_to my_pets_path, notice: 'Your pet was successfully updated.'
     else
       render :edit
     end
@@ -63,6 +84,10 @@ class PetsController < ApplicationController
   end
 
   private
+
+  def pet_owner?
+    return true if Pet.where(user_id: current_user.id).count.positive?
+  end
 
   def pet_params
     params.require(:pet).permit(:name, :gender, :age, :description, :price_per_day, :location, :is_available, :breed_id, :species_id, :user_id, :photo)

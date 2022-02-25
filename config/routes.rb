@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :bookings, only: %i[index destroy edit update show]
   get 'bookings/:id/approve', to: 'bookings#approve'
   get 'bookings/:id/reject', to: 'bookings#reject'
+  get 'my_pets', to: 'pets#my_pets'
 end
