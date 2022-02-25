@@ -27,9 +27,13 @@
         </p>
 
         <% if policy(@booking).approve?  %>
-          <a href="<%=@booking.id%>/approve", class="btn btn-flat"> Approve </a>
-          <a href="<%=@booking.id%>/reject", class="btn btn-outline"> Reject </a>
-          <a href="<%=@booking.id%>/completed", class="btn btn-outline"> Completed </a>
+          <% if @booking.status == "Submitted" %>
+            <a href="<%=@booking.id%>/approve", class="btn btn-flat"> Approve </a>
+            <a href="<%=@booking.id%>/reject", class="btn btn-outline"> Reject </a>
+          <% end %>
+          <% if @booking.status == "Approved" %>
+            <a href="<%=@booking.id%>/completed", class="btn btn-outline"> Completed </a>
+          <% end %>
         <% end %>
       </div>
   </div>

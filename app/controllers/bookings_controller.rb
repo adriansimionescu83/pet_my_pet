@@ -10,7 +10,7 @@ class BookingsController < ApplicationController
     @booking.save
     authorize @booking
 
-    redirect_to booking_path(@booking)
+    redirect_to bookings_path
   end
 
   def reject
@@ -19,7 +19,7 @@ class BookingsController < ApplicationController
     @booking.save
     authorize @booking
 
-    redirect_to booking_path(@booking)
+    redirect_to bookings_path
   end
 
   def completed
@@ -28,7 +28,7 @@ class BookingsController < ApplicationController
     @booking.save
     authorize @booking
 
-    redirect_to booking_path(@booking)
+    redirect_to bookings_path
   end
 
   def show
@@ -64,6 +64,7 @@ class BookingsController < ApplicationController
     @booking.update(booking_params)
     @booking.duration = @booking.date_end - @booking.date_start
     @booking.total_amount = @booking.pet.price_per_day * @booking.duration
+    @booking.save
 
     redirect_to booking_path(@booking)
   end
@@ -79,6 +80,14 @@ class BookingsController < ApplicationController
     authorize @booking
   end
 
+  def complete_booking
+    @bookings = policy_scope(Booking).order(created_at: :desc)
+    @bookings.each do |booking|
+      booking.status = "Completed" if booking.date_end < Date.today
+      booking.save
+    end
+  end
+
   private
 
   def booking_params
@@ -91,12 +100,5 @@ class BookingsController < ApplicationController
 
   def booking_find
     @booking = Booking.find(params[:id])
-  end
-
-  def complete_booking
-    @bookings = policy_scope(Booking).order(created_at: :desc)
-    @bookings.each do |booking|
-      booking.status = "Completed" if booking.date_end < Date.today
-    end
   end
 end
