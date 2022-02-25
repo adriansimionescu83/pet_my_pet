@@ -1,18 +1,99 @@
 <div class="index-banner" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url(https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80);">
   <h1>My Bookings</h1>
 </div>
+<% if current_user.is_pet_owner %>
+  <center><h1>My Bookings as Pet Owner</h1></center>
+  <hr>
 
-<br>
-<br>
+  <center><h3>Upcoming Pending Booking</h3></center>
+
+  <div class="container py-4">
+    <div class="row">
+        <% @bookings.each do |booking| %>
+        <% if booking.status == "Submitted" && booking.pet.user_id == current_user.id %>
+          <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+            <div class="card justify-content-center">
+              <%= link_to booking_path(booking) do %>
+                <%= cl_image_tag booking.pet.photo.attached? ? booking.pet.photo.key : "snvvma0kjax51gieabby", class: "puppy-pic", alt: "pet_image"%>
+              <% end %>
+              <div class="card-body">
+                <h5 class="card-title"><strong><%= booking.pet.name %> is booked from <%= booking.date_start%> to <%= booking.date_end %></strong></h5>
+                <p class="card-text"><%= booking.pet.description %></p>
+                <hr>
+
+                </div>
+                <%= link_to "Delete", booking_path(booking), class: "btn btn-flat", method: :delete, data:{ confirm: "Are you sure?" } %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+    </div>
+  </div>
+
+  <center><h3>Upcoming Approved Booking</h3></center>
+
+  <div class="container py-4">
+    <div class="row">
+          <% @bookings.each do |booking| %>
+            <% if booking.status == "Approved" && booking.pet.user_id == current_user.id %>
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                  <div class="card justify-content-center">
+                    <%= link_to booking_path(booking) do %>
+                      <%= cl_image_tag booking.pet.photo.attached? ? booking.pet.photo.key : "snvvma0kjax51gieabby", class: "puppy-pic", alt: "pet_image"%>
+                    <% end %>
+                    <div class="card-body">
+                      <h5 class="card-title"><strong><%= booking.pet.name %> is booked from <%= booking.date_start%> to <%= booking.date_end %></strong></h5>
+                      <p class="card-text"><%= booking.pet.description %></p>
+                      <hr>
+
+                    </div>
+                    <%= link_to "Delete", booking_path(booking), class: "btn btn-flat", method: :delete, data:{ confirm: "Are you sure?" } %>
+                  </div>
+                </div>
+              <% end %>
+        <% end %>
+    </div>
+  </div>
+
+
+  <center><h3>Completed Booking</h3></center>
+
+  <div class="container py-4">
+    <div class="row">
+          <% @bookings.each do |booking| %>
+            <% if booking.status == "Completed" && booking.pet.user_id == current_user.id %>
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                  <div class="card justify-content-center">
+                    <%= link_to booking_path(booking) do %>
+                      <%= cl_image_tag booking.pet.photo.attached? ? booking.pet.photo.key : "snvvma0kjax51gieabby", class: "puppy-pic", alt: "pet_image"%>
+                    <% end %>
+
+                    <div class="card-body">
+                      <h5 class="card-title"><strong><%= booking.pet.name %> is booked from <%= booking.date_start%> to <%= booking.date_end %></strong></h5>
+                      <p class="card-text"><%= booking.pet.description %></p>
+                      <hr>
+
+                    </div>
+                    <%= link_to "Delete", booking_path(booking), class: "btn btn-flat", method: :delete, data:{ confirm: "Are you sure?" } %>
+                  </div>
+                </div>
+              <% end %>
+        <% end %>
+    </div>
+  </div>
+<% end %>
+
+<center><h1>My Bookings as Renter</h1></center>
+<hr>
+
+<center><h3>My Pending Booking</h3></center>
 
 
 <div class="container py-4">
   <center><h1><strong>Current Bookings</strong></h1></center>
   <div class="row">
       <% @bookings.each do |booking| %>
-
-        <% if booking.status != "Completed" %>
-
+      <% if booking.status == "Submitted" && booking.user_id == current_user.id %>
 
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
           <div class="card justify-content-center">
@@ -33,18 +114,70 @@
   </div>
 </div>
 
-<br>
-<br>
+<center><h3>My Approved Booking</h3></center>
+
+<div class="container py-4">
+  <div class="row">
+        <% @bookings.each do |booking| %>
+           <% if booking.status == "Approved" && booking.user_id == current_user.id %>
+              <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                <div class="card justify-content-center">
+                  <%= link_to booking_path(booking) do %>
+                    <%= cl_image_tag booking.pet.photo.attached? ? booking.pet.photo.key : "snvvma0kjax51gieabby", class: "puppy-pic", alt: "pet_image"%>
+                  <% end %>
+                  <div class="card-body">
+                    <h5 class="card-title"><strong><%= booking.pet.name %> is booked from <%= booking.date_start%> to <%= booking.date_end %></strong></h5>
+                    <p class="card-text"><%= booking.pet.description %></p>
+                    <hr>
+
+                  </div>
+                  <%= link_to "Delete", booking_path(booking), class: "btn btn-flat", method: :delete, data:{ confirm: "Are you sure?" } %>
+                </div>
+              </div>
+            <% end %>
+      <% end %>
+  </div>
+</div>
+
+<center><h3>My Rejected Booking</h3></center>
+
+<div class="container py-4">
+  <div class="row">
+        <% @bookings.each do |booking| %>
+           <% if booking.status == "Rejected" && booking.user_id == current_user.id %>
+              <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                <div class="card justify-content-center">
+                  <%= link_to booking_path(booking) do %>
+                    <%= cl_image_tag booking.pet.photo.attached? ? booking.pet.photo.key : "snvvma0kjax51gieabby", class: "puppy-pic", alt: "pet_image"%>
+                  <% end %>
+                  <div class="card-body">
+                    <h5 class="card-title"><strong><%= booking.pet.name %> is booked from <%= booking.date_start%> to <%= booking.date_end %></strong></h5>
+                    <p class="card-text"><%= booking.pet.description %></p>
+                    <hr>
+
+                  </div>
+                  <%= link_to "Delete", booking_path(booking), class: "btn btn-flat", method: :delete, data:{ confirm: "Are you sure?" } %>
+                </div>
+              </div>
+            <% end %>
+      <% end %>
+  </div>
+</div>
+
+
+<center><h3>My Completed Booking</h3></center>
 
 
 <div class="container py-4">
   <center><h1><strong>Past Bookings</strong></h1></center>
   <div class="row">
         <% @bookings.each do |booking| %>
-          <% if booking.date_end == Date.today %>
+           <% if booking.status == "Completed" && booking.user_id == current_user.id %>
               <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
                 <div class="card justify-content-center">
-                  <img src="https://images.unsplash.com/photo-1599692392256-2d084495fe15?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" class="puppy-pic" alt="...">
+                  <%= link_to booking_path(booking) do %>
+                    <%= cl_image_tag booking.pet.photo.attached? ? booking.pet.photo.key : "snvvma0kjax51gieabby", class: "puppy-pic", alt: "pet_image"%>
+                  <% end %>
 
                   <div class="card-body">
                     <h5 class="card-title"><strong><%= booking.pet.name %> is booked from <%= booking.date_start%> to <%= booking.date_end %></strong></h5>
