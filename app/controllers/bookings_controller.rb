@@ -43,7 +43,7 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     pet_find
     @booking.user = current_user
-    @booking.status = "In progress"
+    @booking.status = "Submitted"
     @booking.pet = @pet
     @booking.duration = @booking.date_end - @booking.date_start
     @booking.total_amount = @booking.pet.price_per_day * @booking.duration

@@ -90,7 +90,6 @@
 
 
 <div class="container py-4">
-  <center><h1><strong>Current Bookings</strong></h1></center>
   <div class="row">
       <% @bookings.each do |booking| %>
       <% if booking.status == "Submitted" && booking.user_id == current_user.id %>
@@ -169,7 +168,6 @@
 
 
 <div class="container py-4">
-  <center><h1><strong>Past Bookings</strong></h1></center>
   <div class="row">
         <% @bookings.each do |booking| %>
            <% if booking.status == "Completed" && booking.user_id == current_user.id %>

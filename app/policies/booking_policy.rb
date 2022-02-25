@@ -7,36 +7,36 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def create?
-    record.pet.user != user
+    pet_owner? == false
   end
 
   def approve?
-    owner?
+    pet_owner?
   end
 
   def reject?
-    owner?
+    pet_owner?
   end
 
   def completed?
-    owner?
+    pet_owner?
   end
 
   def show?
-    renter? || owner? # We are showing the bookings only for pet owners
+    booking_owner? || pet_owner? # We are showing the bookings only for pet owners
   end
 
   def destroy?
-    owner?
+    booking_owner? || pet_owner?
   end
 
   private
 
-  def owner?
+  def pet_owner?
     record.pet.user == user
   end
 
-  def renter?
+  def booking_owner?
     record.user == user
   end
 end

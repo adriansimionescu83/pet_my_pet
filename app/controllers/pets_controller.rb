@@ -1,6 +1,10 @@
 class PetsController < ApplicationController
   def index
-    @pets = policy_scope(Pet).order(created_at: :desc)
+    @pets = policy_scope(Pet).where(is_available: true).order(created_at: :desc)
+
+    if params[:query].present?
+      @pets = Pet.global_search(params[:query])
+    end
 
     @markers = @pets.geocoded.map do |pet|
       {
@@ -9,12 +13,6 @@ class PetsController < ApplicationController
         info_window: render_to_string(partial: "info_window", locals: { pet: pet }),
         image_url: helpers.asset_url("paw-circle.png")
       }
-    end
-
-    if params[:query].present?
-      return @pets = Pet.global_search(params[:query])
-    else
-      return @pets.all
     end
   end
 
@@ -59,11 +57,15 @@ class PetsController < ApplicationController
 
   def destroy
     @pet = Pet.find(params[:id])
-    if @pet.delete
+
+    if Booking.where(pet_id: @pet.id).count.positive?
+      redirect_to my_pets_path, notice: 'Your cannot delete this pet as it has associated bookings.'
+    elsif @pet.delete
       redirect_to my_pets_path, notice: 'Your pet was successfully deleted.'
     else
-      render :my_pets
+      render 'pets/show'
     end
+
     authorize @pet
 
     if current_user.is_pet_owner != pet_owner?
@@ -89,7 +91,11 @@ class PetsController < ApplicationController
   private
 
   def pet_owner?
-    return true if Pet.where(user_id: current_user.id).count.positive?
+    Pet.where(user_id: current_user.id).count.positive?
+  end
+
+  def has_bookings?
+    Booking.where(pet_id: @pet.id).count.positive?
   end
 
   def pet_params
