@@ -22,9 +22,20 @@ class BookingsController < ApplicationController
     redirect_to booking_path(@booking)
   end
 
+  def completed
+    booking_find
+    @booking.status = 'Completed'
+    @booking.save
+    authorize @booking
+
+    redirect_to booking_path(@booking)
+  end
+
   def show
     booking_find
     @review = Review.new
+    @reviews = Review.all
+    @bookings = Booking.all
     authorize @booking
   end
 
@@ -32,6 +43,7 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     pet_find
     @booking.user = current_user
+    @booking.status = "In progress"
     @booking.pet = @pet
     @booking.duration = @booking.date_end - @booking.date_start
     @booking.total_amount = @booking.pet.price_per_day * @booking.duration

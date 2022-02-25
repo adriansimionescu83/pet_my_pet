@@ -1,7 +1,7 @@
 <div class="container col-12-sm col-6-md col-6-lg">
 
   <div class="card d-flex justify-content-space-between">
-    <%= cl_image_tag @booking.pet.photo.attached? ? @booking.pet.photo.key : "snvvma0kjax51gieabby", class: "card-img-left", alt: "pet_image"%>
+    <%= cl_image_tag @booking.pet.photo.attached? ? @booking.pet.photo.key : "snvvma0kjax51gieabby", class: "card-img-left mt-3", alt: "pet_image"%>
       <div class="card-body">
         <h2 class="card-title mt-3"><strong><%= @booking.pet.name %></strong></h2>
         <p class="card-text"><strong>From Date:</strong> <%= @booking.date_start.strftime('%a %d %b %Y') %></p>
@@ -14,15 +14,30 @@
         <h2 class="card-title"><strong>Renter Details</strong></h2>
         <p class="card-text"><strong>Name:</strong> <%= @booking.user.first_name %> <%= @booking.user.last_name %></p>
         <p class="card-text"><strong>Average Rating:</strong> <%= @booking.user.average_rating %></p>
-        <a href="<%=@booking.id%>/approve", class="btn btn-flat"> Approve </a>
-        <a href="<%=@booking.id%>/reject", class="btn btn-outline"> Reject </a>
+        <p class="card-text"><strong>Reviews:</strong>
+          <ul>
+            <% @bookings.each do |booking| %>
+              <% booking.reviews.each do |review| %>
+                <% if review.user_id == booking.pet.user_id %>
+                  <li><em>"<%= review.content %>"</em></li>
+                <% end %>
+              <% end %>
+            <% end %>
+          </ul>
+        </p>
+
+        <% if policy(@booking).approve?  %>
+          <a href="<%=@booking.id%>/approve", class="btn btn-flat"> Approve </a>
+          <a href="<%=@booking.id%>/reject", class="btn btn-outline"> Reject </a>
+          <a href="<%=@booking.id%>/completed", class="btn btn-outline"> Completed </a>
+        <% end %>
       </div>
   </div>
 
     <% if @booking.status.downcase == "completed".downcase %>
       <hr>
       <br>
-      <div class="p-5">
+      <div class="review-form p-5 mt-3 mb-5">
         <h1>Review</h1>
         <%= simple_form_for [@booking, @review] do |f| %>
           <%= f.input :rating %>

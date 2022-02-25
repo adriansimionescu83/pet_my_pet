@@ -27,7 +27,7 @@
         <br>
         <! -------------- owner details -------------- >
         <div class="d-flex">
-          <%= cl_image_tag @pet.user.photo.key, class: "rounded", style: "width: 10%; height: 100%;"%>
+          <%= cl_image_tag @pet.user.photo.attached? ? @pet.user.photo.key : "snvvma0kjax51gieabby", class: "rounded", style: "width: 10%; height: 100%;"%>
           <div class="mx-4">
             <h2 class="card-title"><strong>Owner Details</strong></h2>
             <p class="card-text"><strong>Name:</strong> <%= @pet.user.first_name %> <%= @pet.user.last_name %></p>
@@ -35,35 +35,41 @@
           </div>
         </div>
         <br>
-        <% if current_user != @pet.user %>
-        <hr>
-          <h2 class="card-title"><strong>Take me home!</strong></h2>
-          <%= simple_form_for [@pet, @booking] do |f|%>
-            <%= f.input :message, as: :text%>
-            <%= f.input :date_start, as: :date, html5: true %>
-            <%= f.input :date_end, as: :date, html5: true %>
-            <%= f.submit "Submit request", class: "btn btn-flat"%>
-          <% end %>
-        <% end %>
-        <br>
         <hr>
         <br>
 
         <! -------------- reviews -------------- >
         <h2 class="card-title">
-          <strong><%= pluralize @pet.reviews.size, "review" %></strong>
+            <strong><%= pluralize @reviews.size, "review" %></strong>
         </h2>
 
         <div id="reviews">
           <% if @pet.reviews.blank? %>
             <%= @pet.name %> doesn't have any reviews yet.
           <% else %>
-            <% @pet.reviews.each do |review| %>
+            <% @reviews.each do |review| %>
               <p><%= review.content %></p>
             <% end %>
           <% end %>
         </div>
 
+        <br>
+
+        <% if current_user != @pet.user %>
+          <hr>
+          <br>
+          <div class="rent-form p-5 mt-3 mb-5">
+            <h2 class="card-title"><strong>Take me home!</strong></h2>
+            <%= simple_form_for [@pet, @booking] do |f|%>
+              <%= f.input :message, as: :text%>
+              <%= f.input :date_start, as: :date, html5: true %>
+              <%= f.input :date_end, as: :date, html5: true %>
+              <%= f.submit "Submit request", class: "btn btn-flat"%>
+            <% end %>
+          </div>
+        <% end %>
+        <br>
+        <br>
 
       </div>
     </div>
