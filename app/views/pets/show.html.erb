@@ -1,0 +1,87 @@
+<div class="container p-2">
+
+  <%= link_to 'Back to list', pets_path, class: "btn btn-flat mt-4" %>
+
+
+  <! -------------- pet details -------------- >
+  <div class="col-12-sm col-6-md col-6-lg box-shadow">
+    <div class="card d-flex justify-content-between w-full">
+      <div class="card-body d-flex justify-content-between m-b-2 w-100 border-bottom">
+        <div class="w-70">
+          <h2 class="card-title"><strong><%= @pet.name %></strong></h2>
+          <p class="card-text"><strong>Description:</strong> <%= @pet.description %></p>
+          <p class="card-text"><strong>Gender:</strong> <%= @pet.gender %></p>
+          <p class="card-text"><strong>Age:</strong> <%= @pet.age %> years</p>
+          <p class="card-text"><strong>Breed:</strong> <%= @pet.breed.name %></p>
+          <p class="card-text"><strong>Species:</strong> <%= @pet.species.name %></p>
+          <p class="card-text"><strong>Location:</strong> <%= @pet.location %></p>
+          <p class="card-text"><strong>Price Info:</strong> AED <%= @pet.price_per_day %> / day</p>
+        </div>
+        <div class="d-flex justify-content-center w-30" >
+          <%= cl_image_tag @pet.photo.attached? ? @pet.photo.key : "snvvma0kjax51gieabby", class: "rounded w-100", alt: "pet_image"%>
+        </div>
+
+      </div>  
+
+      <! -------------- owner details -------------- >
+      <div class="card-body d-flex m-b-2 justify-content-start border-bottom">
+        <%= cl_image_tag @pet.user.photo.attached? ? @pet.user.photo.key : "snvvma0kjax51gieabby", class: "img-thumbnail", style: "width: 10%; height: 100%;"%>
+        <div class="mx-4">
+          <h2 class="card-title"><strong>Owner Details</strong></h2>
+          <p class="card-text"><strong>Name:</strong> <%= @pet.user.first_name %> <%= @pet.user.last_name %></p>
+          <p class="card-text"><strong>Average Rating:</strong> <%= @pet.user.average_rating %></p>
+        </div>
+      </div>
+   
+
+      <! -------------- reviews -------------- >
+      <div class="card-body">
+        <h2 class="card-title">
+          <strong><%= pluralize @reviews.size, "review" %></strong>
+        </h2>
+
+        <div id="reviews">
+          <% if @pet.reviews.blank? %>
+            <%= @pet.name %> doesn't have any reviews yet.
+          <% else %>
+            <% @reviews.each do |review| %>
+              <p><%= review.content %></p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+
+      <! -------------- booking form -------------- >
+      <% if current_user != @pet.user %>
+        <div class="card-body rent-form p-3 mt-3">
+          <h2 class="card-title"><strong>Contact the owner if you want to pet sit me!</strong></h2>
+
+          <%= simple_form_for [@pet, @booking], html: { class: 'form-group', 'data-turbo': "false" } do |f| %>
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <%= f.input :message, as: :text, input_html: { class: 'form-control', required: 'required' }, label_html: { class: 'form-label' } %>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <%= f.input :date_start, as: :date, html5: true, input_html: { class: 'form-control', required: 'required' }, wrapper: false, label_html: { class: 'form-label' } %>
+              </div>
+              <div class="col-md-6 mb-3">
+                <%= f.input :date_end, as: :date, html5: true, input_html: { class: 'form-control', required: 'required' }, wrapper: false, label_html: { class: 'form-label' } %>
+              </div>
+            </div>
+            <%= f.submit "Submit request", class: "btn btn-primary btn-flat mt-3" %>
+          <% end %>
+
+        </div>
+      <% end %>
+
+      </div>
+    </div>
+  </div>
+
+  <! -------------- map with pet location -------------- >
+
+
+</div>

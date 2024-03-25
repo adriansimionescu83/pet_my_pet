@@ -1,0 +1,75 @@
+<div class="home-banner d-flex justify-content-center position-relative" 
+     style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://res.cloudinary.com/dfcr2srmr/image/upload/v1645688759/pet-my-pet/z8uu0jsauv9ny1kqtsl6.jpg); height: 50vh;">
+  <div class="w-50 pt-5 position-absolute top-0 start-50 translate-middle-x">
+      <div class="search-form-control form-group">
+        <%= form_tag pets_path, method: :get do %>
+          <%= text_field_tag :query,
+            params[:query],
+            class: "form-control",
+            placeholder: "Search by species or breed (eg: Dog or Golden Retriever)"
+          %>
+          <%= submit_tag "Search", class: "btn btn-flat" %>
+        <% end %>
+
+      </div>
+  </div>
+</div>
+
+<% unless user_signed_in? %>
+  <div class="owner-section">
+    <div class="d-flex flex-column justify-content-center items-center">
+      <h1 class="mb-4 mx-auto"><strong>Are you a pet owner looking for a pet sitter or a pet sitter looking for a pet?</strong></h1>
+      <p class="mb-4 mx-auto">Join the <strong>PetMyPet community</strong> and find the best pet-matches!</p>
+      <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-flat mx-auto" %>
+    </div>
+  </div>
+<% end %>
+
+ <! -------------- map -------------- >
+<div style="width: 100%; height: 400px;" class="hidden"
+  data-controller="mapbox"
+  data-mapbox-markers-value="<%= @markers.to_json %>"
+  data-mapbox-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+</div>
+
+  <! -------------- pet cards -------------- >
+<div class="container mt-4">
+
+  <div class="row">
+    <% @pets.each do |pet| %>
+      <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+        <div class="card justify-content-center">
+          <% if pet.is_available %>
+            <%= link_to pet_path(pet) do %>
+                <%= cl_image_tag pet.photo.attached? ? pet.photo.key : "snvvma0kjax51gieabby", class: "card-img-top", alt: "pet_image"%>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><strong><%= pet.name %></strong></h5>
+              <p class="card-text"><%= pet.description %></p>
+              <hr>
+              <div class="d-flex justify-content-between align-items-center mt-4">
+                <div class="d-flex justify-content-center align-items-center mb-2 gap-2 fs-6">
+                  <i class="fas fa-star"></i>
+                  <span class=""><strong><%= pet.average_rating %></strong></span>
+                </div>
+                <h6 class="card-subtitle mb-2 text-muted"><strong>AED <%= pet.price_per_day %></strong> / day</h6>
+              </div>
+              <div class="edit-pet d-flex justify-content-between">
+
+                <% if policy(pet).edit?  %>
+                  <%= link_to 'Edit', edit_pet_path(pet), class: "btn btn-outline-secondary"%>
+                  <%= link_to 'Delete', pet_path(pet), method: :delete, class: "btn btn-outline-secondary",
+                      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>      
+            
+
+                <% end %>
+              </div>
+
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+

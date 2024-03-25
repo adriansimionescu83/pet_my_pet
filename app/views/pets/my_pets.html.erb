@@ -1,0 +1,51 @@
+<div class="home-banner d-flex justify-content-center" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://res.cloudinary.com/dfcr2srmr/image/upload/v1645688759/pet-my-pet/z8uu0jsauv9ny1kqtsl6.jpg); height: 30vh;">
+</div>
+
+<! -------------- pet cards -------------- >
+<div class="container mt-4">
+
+  <div class="row">
+
+    <% if @pets.length > 0 %>
+      <% @pets.each do |pet| %>
+        <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+          <div class="card justify-content-center">
+            <% if policy(pet).edit?  %>
+
+            <%= link_to pet_path(pet) do %>
+              <%= cl_image_tag pet.photo.attached? ? pet.photo.key : "snvvma0kjax51gieabby", class: "card-img-top", alt: "pet_image"%>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><strong><%= pet.name %></strong></h5>
+              <p class="card-text"><%= pet.description %></p>
+              <hr>
+
+                  <div class="d-flex justify-content-between align-items-center mt-4">
+                    <div class="d-flex justify-content-center align-items-center mb-2">
+                      <i class="fas fa-star"></i>
+                      <h6 class="card-subtitle text-muted"><strong><%= pet.average_rating %></strong></h6>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted"><strong>AED <%= pet.price_per_day %></strong> / day</h6>
+                  </div>
+              <div class="edit-pet d-flex justify-content-between">
+
+                <% if policy(pet).edit?  %>
+                  <%= link_to 'Edit', edit_pet_path(pet), class: "btn btn-outline-secondary"%>
+                  <%= link_to 'Delete', pet_path(pet), method: :delete, class: "btn btn-outline-secondary",
+                      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>      
+                <% end %>
+              </div>
+
+            </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+
+      <h6 class="card-subtitle text-muted w-100 text-center">You have not registered a pet yet. Please click on the 'Add Pet' button from the menu to do so. </h6>
+    <% end %>
+
+
+  </div>
+</div>

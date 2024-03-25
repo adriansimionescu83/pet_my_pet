@@ -1,0 +1,95 @@
+<div class="container col-12-sm col-6-md col-6-lg p-2">
+
+  <%= link_to 'Back to list', bookings_path, class: "btn btn-flat mt-4" %>
+
+  <div class="col-12-sm col-6-md col-6-lg box-shadow">
+    <div class="card d-flex justify-content-between w-full">
+      <div class="card-body d-flex justify-content-between m-b-2 w-100 border-bottom">
+        <div class="w-70">
+          <h2 class="card-title mt-3"><strong><%= @booking.pet.name %></strong></h2>
+          <p class="card-text"><strong>From Date:</strong> <%= @booking.date_start.strftime('%a %d %b %Y') %></p>
+          <p class="card-text"><strong>To Date:</strong> <%= @booking.date_end.strftime('%a %d %b %Y') %></p>
+          <p class="card-text"><strong>Message:</strong> <%= @booking.message %></p>
+          <p class="card-text"><strong>Number of Days:</strong> <%= @booking.duration %></p>
+          <p class="card-text"><strong>Price per Day:</strong> <%= @booking.pet.price_per_day %> AED</p>
+          <p class="card-text"><strong>Total Amount: </strong> <%= @booking.total_amount.nil? ? "0.00" : @booking.total_amount %> AED </p>
+          <p class="card-text"><strong>Status:</strong>  <%= @booking.status %></p>
+        </div>
+
+        <div class="d-flex justify-content-center w-30" >
+          <%= cl_image_tag @booking.pet.photo.attached? ? @booking.pet.photo.key : "snvvma0kjax51gieabby", class: "rounded w-100", alt: "pet_image"%>
+        </div>
+      </div>
+
+      <% if @booking.user.id == current_user.id %>
+        <! -------------- Pet owner details -------------- >
+
+        <div class="card-body m-b-2 w-100">
+          <h2 class="card-title"><strong>Pet owner details</strong></h2>
+          <p class="card-text"><strong>Name:</strong> <%= @booking.pet.user.first_name %> <%= @booking.pet.user.last_name %></p>
+          <p class="card-text"><strong>Reviews:</strong>
+            <ul>
+              <% @owner_reviews.each do |review| %>
+                  <li><em>"<%= review.content %>"</em></li>
+              <% end %>
+            </ul>
+          </p>
+        </div>
+
+      <% else %>
+        <! -------------- Pet sitter details -------------- >
+
+        <div class="card-body m-b-2 w-100">
+          <h2 class="card-title"><strong>Pet sitter details</strong></h2>
+          <p class="card-text"><strong>Name:</strong> <%= @booking.user.first_name %> <%= @booking.user.last_name %></p>
+          <p class="card-text"><strong>Reviews:</strong>
+            <ul>
+              <% @sitter_reviews.each do |review| %>
+                <li><em>"<%= review.content %>"</em></li>
+              <% end %>
+            </ul>
+          </p>
+        </div>
+      <% end %>
+
+      <div class="card-body m-b-2 w-100">
+
+        <% if policy(@booking).approve?  %>
+          <% if @booking.status == "Submitted" %>
+            <a href="<%=@booking.id%>/approve", class="btn btn-flat"> Approve </a>
+            <a href="<%=@booking.id%>/reject", class="btn btn-outline"> Reject </a>
+          <% elsif @booking.status == "Approved" %>
+            <a href="<%=@booking.id%>/completed", class="btn btn-outline"> Completed </a>
+          <% end %>
+        <% end %>
+      </div>
+
+    </div>
+
+
+
+    <% if @booking.status.downcase == "completed" %>
+      <div class="card review-form p-3 my-3">
+        <% if @booking.user.id == current_user.id %>
+          <h2 class="card-title"><strong>Leave a review for pet owner</strong></h2>
+        <% else %>
+          <h2 class="card-title"><strong>Leave a review for pet sitter</strong></h2>
+        <% end %>
+        <%= simple_form_for [@booking, @review], html: { class: 'form-group card-body' } do |f| %>
+          <div class="form-row mb-3">
+            <%= f.input :rating, label_html: { class: 'form-label' }, input_html: { class: 'form-control' }, hint: 'Rate from 1 to 5' %>
+          </div>
+
+          <div class="form-row mb-3">
+            <%= f.input :content, as: :text, label_html: { class: 'form-label' }, input_html: { class: 'form-control', rows: 3 }, placeholder: 'Write your review here...' %>
+          </div>
+
+          <div class="form-actions">
+            <%= f.submit "Submit Review", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+
+      </div>
+    <% end %>
+  </div>
+</div>

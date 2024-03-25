@@ -1,0 +1,46 @@
+// Specific CSS for your home-page
+.home-banner {
+  background-size: cover;
+  background-position: 0% 50%;
+  padding: 160px 0;
+  height: 30vh;
+
+  h1 {
+    margin: 0;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  p {
+    font-size: 20px;
+    color: white;
+    opacity: .7;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  }
+}
+
+
+.owner-section {
+  background-color: #ede9ef;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+
+    .container {
+      flex-basis: content;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    h1 {
+      color: rgb(107, 0, 128);
+    }
+}

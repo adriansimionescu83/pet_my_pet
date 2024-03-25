@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <div class="card row col-md-6 my-2"> <!-- Adjusted the column size for medium devices -->
+
+      <div class="card-body pet-form p-5">
+        <h1 class="card-title mb-4">Log in</h1>
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'needs-validation', novalidate: '' }) do |f| %>
+
+          <div class="form-inputs">
+            <%= f.input :email,
+                        required: true, 
+                        autofocus: true,
+                        input_html: { class: 'mb-2 form-control', autocomplete: "email" }, 
+                        wrapper: false, 
+                        label_html: { class: 'mt-2 form-label' } %>
+            <%= f.input :password,
+                        required: true, 
+                        input_html: { class: 'mb-2 form-control', autocomplete: "current-password" }, 
+                        wrapper: false, 
+                        label_html: { class: 'mt-2 form-label' } %>
+            <% if devise_mapping.rememberable? %>
+              <%= f.input :remember_me, as: :boolean, inline_label: 'Remember me', input_html: { class: 'form-check-input mt-2' }, wrapper: false, label_html: { class: 'form-check-label' } %>
+            <% end %>
+          </div>
+
+          <div class="form-actions mt-4">
+            <%= f.button :submit, "Log in", class: "btn btn-primary btn-block" %> <!-- Updated button classes -->
+          </div>
+        <% end %>
+
+        <%= render "devise/shared/links", class: "mt-3" %> <!-- Added margin-top -->
+      </div>
+
+    </div>
+  </div>
+</div>
