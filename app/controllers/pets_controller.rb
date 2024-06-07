@@ -35,17 +35,19 @@ class PetsController < ApplicationController
   def create
     @pet = Pet.new(pet_params)
     @pet.user = current_user
+    authorize @pet
+  
     if @pet.save
-      redirect_to my_pets_path
+      if current_user.is_pet_owner == false
+        current_user.is_pet_owner = true
+        current_user.save
+      end
+      redirect_to my_pets_path, notice: 'Pet was successfully created.'
     else
       render :new
     end
-    authorize @pet
-    if current_user.is_pet_owner == false
-      current_user.is_pet_owner = true
-      current_user.save
-    end
   end
+  
 
   def show
     @pet = Pet.find(params[:id])

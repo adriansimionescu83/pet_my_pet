@@ -23,6 +23,13 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :photo])
   end
 
+  def seed_database
+    # Run the seed command
+    `rails db:seed`
+    # Redirect to a success page or render some output
+    render plain: "Database seeded successfully"
+  end
+
   private
 
   def skip_pundit?
