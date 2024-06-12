@@ -27,7 +27,7 @@
             <%= link_to "My Dashboard", bookings_path, class: "nav-link" %>
           </li>
           <li class="nav-item dropdown">
-            <%= cl_image_tag current_user.photo.attached? ? current_user.photo.key : "snvvma0kjax51gieabby", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <%= cl_image_tag current_user.photo.attached? ? current_user.photo.key : "default_pic", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item", data: { turbo_method: :delete } %>
               <%= link_to "Edit profile", edit_user_registration_path(@current_user), class: "dropdown-item" %>

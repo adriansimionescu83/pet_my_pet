@@ -1,4 +1,3 @@
-# syntax = docker/dockerfile:1
 
 # Base Ruby Image
 ARG RUBY_VERSION=3.2.2
