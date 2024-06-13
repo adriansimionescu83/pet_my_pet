@@ -21,5 +21,5 @@ class Pet < ApplicationRecord
     using: {
       tsearch: { prefix: true }
     }
-  has_one_attached :photo, service: :cloudinary
+  has_one_attached :photo
 end

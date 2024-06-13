@@ -15,4 +15,7 @@ Rails.application.routes.draw do
   resources :bookings, only: %i[index destroy edit update show] do
     resources :reviews, only: %i[create]
   end
+  # config/routes.rb
+  get 'seed_database', to: 'application#seed_database'
+
 end

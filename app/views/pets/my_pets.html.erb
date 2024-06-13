@@ -13,7 +13,7 @@
             <% if policy(pet).edit?  %>
 
             <%= link_to pet_path(pet) do %>
-              <%= cl_image_tag pet.photo.attached? ? pet.photo.key : "snvvma0kjax51gieabby", class: "card-img-top", alt: "pet_image"%>
+              <%= cl_image_tag pet.photo.attached? ? pet.photo.key : "default_image_pet", class: "card-img-top", alt: "pet_image"%>
             <% end %>
             <div class="card-body">
               <h5 class="card-title"><strong><%= pet.name %></strong></h5>
